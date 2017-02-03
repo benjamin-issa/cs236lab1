@@ -27,7 +27,7 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 {
 	int MaxCharacters = Input->size();
 	int CurrentIndex = 0;//where are we in the input string
-	int LineCount = 1;
+	this->LineCount = 1;
 	std::vector<token*>* tokens = new std::vector<token*>();
 	
 	//read through the input string, invoking each state machine 
@@ -46,7 +46,7 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		{
 			if(InputChar == '\n')
 			{
-				LineCount++;
+				this->LineCount++;
 			}
 			
 			CurrentIndex++;//for now...
@@ -159,4 +159,8 @@ std::vector<char>* lexer::fileToVectorOfChars(std::string FileName)
 void lexer::setState(state* State)
 {
 	m_currentState = State;
+}
+
+void lexer::increaseLineCount(){
+	LineCount++;
 }

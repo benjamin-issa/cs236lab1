@@ -31,13 +31,15 @@ public:
 	//method for setting the new state of an active state machine
 	void setState(state* State);
 
-	int LineCount;
+	void increaseLineCount();
 	
 	lexer();//make the constructor private to prevent instantiation of the class...
 	
 private:
 	
 	void runMachine(std::vector<char>* Input, int Index);
+
+	int LineCount;
 	
 	//the lexer will act as the context manager for its state machines, we need
 	//a pointer to the current state
