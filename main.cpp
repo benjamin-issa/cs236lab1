@@ -12,6 +12,7 @@
 #include <string>
 #include "lexer.h"
 
+//g++ -std=c++14 main.cpp facts.cpp lexer.cpp singles.cpp state.cpp strings.cpp token.cpp rules.cpp schemes.cpp queries.cpp -o main
 
 std::vector<token*>* lex(std::string fileName);
 
