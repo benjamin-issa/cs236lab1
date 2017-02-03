@@ -28,7 +28,8 @@ int main(int argC, char* argV[])
 	std::vector<token*>* tokens = lex(std::string(argV[1]));
 	if(tokens == nullptr)
 	{
-		//something went wrong!
+		//Maybe the file was empty?
+		//std::cout << "There was an error. Wass the file empty?";
 		return 0;
 	}
 	
