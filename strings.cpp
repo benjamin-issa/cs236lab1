@@ -41,8 +41,13 @@ bool inString::input(char Character)
 		m_token->addCharacter(Character);
 		nextState(new oneQuote(m_contextManager, m_token));
 	}
-	else//this is a broken comment, we want to mark it as undefined an not completely reject it...
+	else if (Character == EOF)
 	{
+		m_token->setType(UNDEFINED);
+		delete this;
+		return stillValid;
+	}
+	else{
 		m_token->setType(UNDEFINED);
 	}
 	
@@ -60,24 +65,19 @@ bool oneQuote::input(char Character)
 		m_token->addCharacter(Character);
 		nextState(new inString(m_contextManager, m_token));
 	}
+	else if (Character == EOF){
+		m_token->setType(UNDEFINED);
+		delete this;
+		return stillValid;
+	}
 	else {
 		m_token->setType(STRING);
 		delete this;
 		return stillValid;
 	}
-	/*
-	else if(isspace(Character))
-	{
-		m_token->setType(STRING);//accept the string and stop scanning
-	}
-	else//this is a broken string, mark it as such and go on...
-	{
-		m_token->setType(UNDEFINED);
-	}
-	*/
 	
 	/*THIS MUST HAPPEN LAST!!!*/
 	delete this;
 	return stillValid;
 }
-
+	

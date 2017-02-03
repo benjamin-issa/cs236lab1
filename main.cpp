@@ -30,13 +30,12 @@ int main(int argC, char* argV[])
 	if(tokens == nullptr)
 	{
 		//Maybe the file was empty?
-		//std::cout << "There was an error. Wass the file empty?";
+		//std::cout << "There was an error. Was the file empty?";
 		return 0;
 	}
 	
 	lexer::printAnalysis(tokens);
-	//at some point we will need to parse these tokens...
-	
+		
 	return 0;
 }
 
