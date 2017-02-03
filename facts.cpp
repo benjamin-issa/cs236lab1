@@ -24,7 +24,7 @@ bool facts::input(char Character)
 bool factF::input(char Character)
 {
 	bool stillValid = false;
-	if(Character == 'A')
+	if(Character == 'a')
 	{
 		stillValid = true;
 		m_token->addCharacter(Character);
@@ -42,7 +42,7 @@ bool factF::input(char Character)
 bool factA::input(char Character)
 {
 	bool stillValid = false;
-	if(Character == 'C')
+	if(Character == 'c')
 	{
 		stillValid = true;
 		m_token->addCharacter(Character);
@@ -60,7 +60,7 @@ bool factA::input(char Character)
 bool factC::input(char Character)
 {
 	bool stillValid = false;
-	if(Character == 'T')
+	if(Character == 't')
 	{
 		stillValid = true;
 		m_token->addCharacter(Character);
@@ -78,7 +78,7 @@ bool factC::input(char Character)
 bool factT::input(char Character)
 {
 	bool stillValid = false;
-	if(Character == 'S')
+	if(Character == 's')
 	{
 		stillValid = true;
 		m_token->addCharacter(Character);
