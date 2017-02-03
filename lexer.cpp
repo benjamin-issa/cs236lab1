@@ -40,6 +40,7 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 	while(CurrentIndex < MaxCharacters)
 	{
 		InputChar = (*Input)[CurrentIndex];
+		//std::cout << "\"" << InputChar << "\"\n";
 		//first check for and consume whitespace... 
 		while(isspace(InputChar))
 		{
@@ -83,18 +84,15 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		if(newToken->Type() == UNDEFINED)
 		{
 			//do the next thing...
-			m_currentState = new strings(this, newToken);
+			m_currentState = new queries(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}
 		if(newToken->Type() == UNDEFINED)
 		{
 			//do the next thing...
-			m_currentState = new queries(this, newToken);
+			m_currentState = new strings(this, newToken);
 			runMachine(Input, CurrentIndex);
-		}
-		
-		//TODO: check for more token types...
-		
+		}		
 		if(newToken->Type() == UNDEFINED)
 		{
 			//OOPS! NOTHING MATCHES!!!

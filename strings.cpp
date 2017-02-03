@@ -54,6 +54,12 @@ bool oneQuote::input(char Character)
 		m_token->addCharacter(Character);
 		nextState(new inString(m_contextManager, m_token));
 	}
+	else {
+		m_token->setType(STRING);
+		delete this;
+		return stillValid;
+	}
+	/*
 	else if(isspace(Character))
 	{
 		m_token->setType(STRING);//accept the string and stop scanning
@@ -62,6 +68,7 @@ bool oneQuote::input(char Character)
 	{
 		m_token->setType(UNDEFINED);
 	}
+	*/
 	
 	/*THIS MUST HAPPEN LAST!!!*/
 	delete this;
