@@ -1,5 +1,4 @@
 
-
 #include "facts.h"
 
 bool facts::input(char Character)

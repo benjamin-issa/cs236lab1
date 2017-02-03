@@ -11,6 +11,7 @@
 #include "singles.h"
 #include "facts.h"
 #include "strings.h"
+#include "rules.h"
 
 
 lexer::lexer()
@@ -60,6 +61,13 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		{
 			//do the next thing...
 			m_currentState = new facts(this, newToken);
+			runMachine(Input, CurrentIndex);
+		}
+
+		if(newToken->Type() == UNDEFINED)
+		{
+			//do the next thing...
+			m_currentState = new rules(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}
 		
