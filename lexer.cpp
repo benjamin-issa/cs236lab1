@@ -13,6 +13,7 @@
 #include "strings.h"
 #include "rules.h"
 #include "schemes.h"
+#include "queries.h"
 
 
 lexer::lexer()
@@ -83,6 +84,12 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		{
 			//do the next thing...
 			m_currentState = new strings(this, newToken);
+			runMachine(Input, CurrentIndex);
+		}
+		if(newToken->Type() == UNDEFINED)
+		{
+			//do the next thing...
+			m_currentState = new queries(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}
 		
