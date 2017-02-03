@@ -14,7 +14,7 @@
 #include "rules.h"
 #include "schemes.h"
 #include "queries.h"
-
+#include "id.h"
 
 lexer::lexer()
 {
@@ -44,7 +44,6 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		//first check for and consume whitespace... 
 		while(isspace(InputChar))
 		{
-			//TODO:check for newlines...
 			if(InputChar == '\n')
 			{
 				LineCount++;
@@ -92,6 +91,10 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 			//do the next thing...
 			m_currentState = new strings(this, newToken);
 			runMachine(Input, CurrentIndex);
+		}
+		if(newToken->Type() == UNDEFINED){
+			m_currentState = new id(this, newToken);
+			runMachine(Input, CurrentIndex);
 		}		
 		if(newToken->Type() == UNDEFINED)
 		{
@@ -102,6 +105,8 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		CurrentIndex+=newToken->stringSize();
 	}
 	
+	newToken = new token(MY_EOF, LineCount);
+	tokens->push_back(newToken);
 	return tokens;
 }	
 

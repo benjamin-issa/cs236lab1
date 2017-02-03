@@ -30,6 +30,8 @@ public:
 	
 	//method for setting the new state of an active state machine
 	void setState(state* State);
+
+	int LineCount;
 	
 	lexer();//make the constructor private to prevent instantiation of the class...
 	
