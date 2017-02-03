@@ -112,10 +112,22 @@ std::vector<char>* lexer::fileToVectorOfChars(std::string FileName)
 	
 	std::vector<char>* Characters = new std::vector<char>();
 	
-	//TODO: read all of the characters in the file indicated by FileName into the vector Characters...
+	std::ifstream InputFile(FileName.c_str());
 	
-	
+	if(InputFile.fail())
+	{
+		std::cout << "Error: Unable to Open File.\n";
+		return Characters;
+	}
+	char Character = InputFile.get();
+	while(InputFile.good())
+	{
+		Characters->push_back(Character);
+		Character = InputFile.get();
+	}
+		
 	return Characters;
+
 }
 
 void lexer::setState(state* State)
