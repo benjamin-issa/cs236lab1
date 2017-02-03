@@ -37,7 +37,9 @@ int token::stringSize()
 
 void token::printDescription()
 {
-	//TODO: print the token description to stdout
+
+	std::cout << "(" << this->token_strings[m_type] << ",\"" << this->m_value << "\"" << "," << this->m_lineCount << ")";
+	std::cout << "\n";
 }
 
 void token::clearString()
