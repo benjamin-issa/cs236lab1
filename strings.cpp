@@ -26,10 +26,7 @@ bool inString::input(char Character)
 	if(Character != '\'' && Character != EOF)
 	{
 		if (Character == '\n'){
-			//std::cout << m_contextManager->LineCount;
 			m_contextManager->increaseLineCount();
-			//std::cout << "I WAS CALLED!!";
-			//std::cout << m_contextManager->LineCount;
 		}
 		stillValid = true;
 		m_token->addCharacter(Character);

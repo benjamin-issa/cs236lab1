@@ -59,44 +59,44 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		m_currentState = new singles(this, newToken);
 		runMachine(Input, CurrentIndex);
 		
-		if(newToken->Type() == UNDEFINED)
+		if(newToken->Type() == UNDEFINED && !this->at_eof)
 		{
 			//do the next thing...
 			m_currentState = new facts(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}
 
-		if(newToken->Type() == UNDEFINED)
+		if(newToken->Type() == UNDEFINED && !this->at_eof)
 		{
 			//do the next thing...
 			m_currentState = new rules(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}
 		
-		if(newToken->Type() == UNDEFINED)
+		if(newToken->Type() == UNDEFINED && !this->at_eof)
 		{
 			//do the next thing...
 			m_currentState = new schemes(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}
 
-		if(newToken->Type() == UNDEFINED)
+		if(newToken->Type() == UNDEFINED && !this->at_eof)
 		{
 			//do the next thing...
 			m_currentState = new queries(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}
-		if(newToken->Type() == UNDEFINED)
+		if(newToken->Type() == UNDEFINED && !this->at_eof)
 		{
 			//do the next thing...
 			m_currentState = new strings(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}
-		if(newToken->Type() == UNDEFINED){
+		if(newToken->Type() == UNDEFINED && !this->at_eof){
 			m_currentState = new id(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}		
-		if(newToken->Type() == UNDEFINED)
+		if(newToken->Type() == UNDEFINED && !this->at_eof)
 		{
 			//OOPS! NOTHING MATCHES!!!
 			newToken->addCharacter(InputChar);
@@ -117,6 +117,12 @@ void lexer::runMachine(std::vector<char>* Input, int Index)
 	while(m_currentState->input(InputChar))//let the state machine do the work...
 	{	
 		Index++;
+		if (Index > Input->size())
+		{
+			//std::cout << "Oops";
+			this->at_eof = true;
+			break;
+		}
 		InputChar = (*Input)[Index];
 		//std::cout << InputChar << " " << (int)InputChar << std::endl;
 	}

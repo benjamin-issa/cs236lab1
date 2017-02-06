@@ -32,6 +32,8 @@ public:
 	void setState(state* State);
 
 	void increaseLineCount();
+
+	bool at_eof = false; //Returns true if we hit the end of the file. 
 	
 	lexer();//make the constructor private to prevent instantiation of the class...
 	
