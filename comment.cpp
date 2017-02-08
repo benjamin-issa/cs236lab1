@@ -76,6 +76,11 @@ bool inmultilinecomment::input(char Character)
 		m_token->setType(UNDEFINED);
 		delete this;
 		return stillValid;
+	} else if(Character == '\n'){
+		m_contextManager->increaseLineCount();
+		stillValid = true;
+		m_token->addCharacter(Character);
+		nextState(new inmultilinecomment(m_contextManager, m_token));
 	}
 	else{
 		stillValid = true;
