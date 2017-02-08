@@ -15,6 +15,7 @@
 #include "schemes.h"
 #include "queries.h"
 #include "id.h"
+#include "comment.h"
 
 lexer::lexer()
 {
@@ -94,6 +95,10 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		}
 		if(newToken->Type() == UNDEFINED && !this->at_eof){
 			m_currentState = new id(this, newToken);
+			runMachine(Input, CurrentIndex);
+		}
+		if(newToken->Type() == UNDEFINED && !this->at_eof){
+			m_currentState = new comment(this, newToken);
 			runMachine(Input, CurrentIndex);
 		}		
 		if(newToken->Type() == UNDEFINED && !this->at_eof)
