@@ -67,47 +67,12 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		m_currentState = new singles(this, newToken);
 		runMachine(Input, CurrentIndex);
 		
-		if(newToken->Type() == UNDEFINED && !this->at_eof)
-		{
-			//do the next thing...
-			m_currentState = new facts(this, newToken);
-			runMachine(Input, CurrentIndex);
-		}
+		//Check for keywords ("Facts," "Rules," "Queries," and "Schemes")
+		findkeywords(Input, CurrentIndex, newToken);
 
-		if(newToken->Type() == UNDEFINED && !this->at_eof)
-		{
-			//do the next thing...
-			m_currentState = new rules(this, newToken);
-			runMachine(Input, CurrentIndex);
-		}
+		//Check for the open-ended possible token types (IDs, Strings, and Comments)
+		findopenended(Input, CurrentIndex, newToken);
 		
-		if(newToken->Type() == UNDEFINED && !this->at_eof)
-		{
-			//do the next thing...
-			m_currentState = new schemes(this, newToken);
-			runMachine(Input, CurrentIndex);
-		}
-
-		if(newToken->Type() == UNDEFINED && !this->at_eof)
-		{
-			//do the next thing...
-			m_currentState = new queries(this, newToken);
-			runMachine(Input, CurrentIndex);
-		}
-		if(newToken->Type() == UNDEFINED && !this->at_eof)
-		{
-			//do the next thing...
-			m_currentState = new strings(this, newToken);
-			runMachine(Input, CurrentIndex);
-		}
-		if(newToken->Type() == UNDEFINED && !this->at_eof){
-			m_currentState = new id(this, newToken);
-			runMachine(Input, CurrentIndex);
-		}
-		if(newToken->Type() == UNDEFINED && !this->at_eof){
-			m_currentState = new comment(this, newToken);
-			runMachine(Input, CurrentIndex);
-		}		
 		if(newToken->Type() == UNDEFINED && !this->at_eof)
 		{
 			//OOPS! NOTHING MATCHES!!!
@@ -122,6 +87,55 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 	tokens->push_back(newToken);
 	return tokens;
 }	
+
+void lexer::findkeywords(std::vector<char>* Input, int Index, token*& newToken)
+{
+		if(newToken->Type() == UNDEFINED)
+		{
+			//do the next thing...
+			m_currentState = new facts(this, newToken);
+			runMachine(Input, Index);
+		}
+
+		if(newToken->Type() == UNDEFINED)
+		{
+			//do the next thing...
+			m_currentState = new rules(this, newToken);
+			runMachine(Input, Index);
+		}
+		
+		if(newToken->Type() == UNDEFINED)
+		{
+			//do the next thing...
+			m_currentState = new schemes(this, newToken);
+			runMachine(Input, Index);
+		}
+
+		if(newToken->Type() == UNDEFINED)
+		{
+			//do the next thing...
+			m_currentState = new queries(this, newToken);
+			runMachine(Input, Index);
+		}
+}
+
+void lexer::findopenended(std::vector<char>* Input, int Index, token*& newToken)
+{
+		if(newToken->Type() == UNDEFINED && !this->at_eof)
+		{
+			//do the next thing...
+			m_currentState = new strings(this, newToken);
+			runMachine(Input, Index);
+		}
+		if(newToken->Type() == UNDEFINED && !this->at_eof){
+			m_currentState = new id(this, newToken);
+			runMachine(Input, Index);
+		}
+		if(newToken->Type() == UNDEFINED && !this->at_eof){
+			m_currentState = new comment(this, newToken);
+			runMachine(Input, Index);
+		}	
+}
 
 void lexer::runMachine(std::vector<char>* Input, int Index)
 {

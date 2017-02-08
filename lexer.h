@@ -41,6 +41,11 @@ private:
 	
 	void runMachine(std::vector<char>* Input, int Index);
 
+	void findkeywords(std::vector<char>* Input, int Index, token*& newToken);
+
+	void findopenended(std::vector<char>* Input, int Index, token*& newToken);
+
+
 	int LineCount;
 	
 	//the lexer will act as the context manager for its state machines, we need
