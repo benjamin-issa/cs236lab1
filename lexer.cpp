@@ -1,8 +1,9 @@
 /*
-*
-*
-*
-*
+* lexer.cpp
+* Benjamin Ferid Issa
+* February 8th 2017
+* 
+* Based on files provided by Dr. Frank Jones, Computer Science Department, Brigham Young University
 */
 
 #include <iostream>

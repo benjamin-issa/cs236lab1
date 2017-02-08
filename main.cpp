@@ -1,10 +1,9 @@
 /*
 * main.cpp
-* By: Frank Jones
-* January 24th 2017
+* Benjamin Ferid Issa
+* February 8th 2017
 * 
-* Description: This file contains the main method for a lexical analyzer that
-* recognizes a subset of the Datalog language
+* Based on files provided by Dr. Frank Jones, Computer Science Department, Brigham Young University
 */
 
 #include <iostream>
