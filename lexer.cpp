@@ -51,7 +51,14 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 			}
 			
 			CurrentIndex++;//for now...
-			InputChar = (*Input)[CurrentIndex];
+			if (CurrentIndex < MaxCharacters){
+				InputChar = (*Input)[CurrentIndex];
+			}
+			else{
+				newToken = new token(MY_EOF, LineCount);
+				tokens->push_back(newToken);
+				return tokens;
+			}
 		}
 		
 		//run the token recognizers in precedence enforcing order
@@ -105,6 +112,7 @@ std::vector<token*>* lexer::analyze(std::vector<char>* Input)
 		{
 			//OOPS! NOTHING MATCHES!!!
 			newToken->addCharacter(InputChar);
+
 		}
 		tokens->push_back(newToken);
 		CurrentIndex+=newToken->stringSize();
